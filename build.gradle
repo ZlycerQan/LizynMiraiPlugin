@@ -1,0 +1,22 @@
+plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.5.10'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.5.10'
+
+    id 'net.mamoe.mirai-console' version '2.6.7'
+}
+
+group = 'org.zlycerqan.mirai.lizyn'
+version = '2.1'
+
+repositories {
+    maven { url 'https://maven.aliyun.com/repository/public' }
+    mavenCentral()
+}
+
+dependencies {
+    implementation "mysql:mysql-connector-java:8.0.23"
+    implementation "com.esotericsoftware.yamlbeans:yamlbeans:1.15"
+    implementation "org.reflections:reflections:0.9.12"
+    implementation "org.jsoup:jsoup:1.13.1"
+    implementation 'com.alibaba:fastjson:1.2.76'
+}
