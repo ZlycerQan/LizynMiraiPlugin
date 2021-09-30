@@ -54,12 +54,6 @@ public class Tool extends SimpleService {
             }
         } else if (event.getClass() == GroupMessageEvent.class) {
             GroupMessageEvent groupMessageEvent = (GroupMessageEvent) event;
-            if (groupMessageEvent.getGroup().getId() == 691090556L && (groupMessageEvent.getSender().getId() == 3224104574L || groupMessageEvent.getSender().getId() == 571949166L || groupMessageEvent.getSender().getId() == 3542416311L)) {
-                if (groupMessageEvent.getMessage().contains(Image.Key)) {
-                    MessageSource.recallIn(groupMessageEvent.getMessage(), 2 * 60 * 1000L);
-                }
-                return "";
-            }
             MessageChain messages = groupMessageEvent.getMessage();
             long[] atList = MessageUtils.getAtList(messages);
             if (atList.length == 1 && atList[0] == groupMessageEvent.getBot().getId()) {
