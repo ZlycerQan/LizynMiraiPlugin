@@ -296,7 +296,7 @@ public class Codeforces extends SimpleService {
     private Consumer<Event> makeFriendCommandContest() {
         return event -> getExecutor().execute(() -> {
             FriendMessageEvent friendMessageEvent = (FriendMessageEvent) event;
-            Image image = Contact.uploadImage(friendMessageEvent.getFriend(), new File(CACHE_DIRECTION + "\\" + CONTESTS_PICTURE_CACHE_FILENAME));
+            Image image = Contact.uploadImage(friendMessageEvent.getFriend(), new File(CONTESTS_PICTURE_CACHE_FILEPATH));
             friendMessageEvent.getFriend().sendMessage(image);
         });
     }
@@ -306,7 +306,7 @@ public class Codeforces extends SimpleService {
     private Consumer<Event> makeGroupCommandContest() {
         return (event) -> getExecutor().execute(() -> {
             GroupMessageEvent groupMessageEvent = (GroupMessageEvent) event;
-            Image image = Contact.uploadImage(groupMessageEvent.getGroup(), new File(CACHE_DIRECTION + "\\" + CONTESTS_PICTURE_CACHE_FILENAME));
+            Image image = Contact.uploadImage(groupMessageEvent.getGroup(), new File(CONTESTS_PICTURE_CACHE_FILEPATH));
             At at = new At(groupMessageEvent.getSender().getId());
             groupMessageEvent.getGroup().sendMessage(at.plus(image));
         });
