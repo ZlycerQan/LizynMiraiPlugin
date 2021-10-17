@@ -1,6 +1,5 @@
 package org.zlycerqan.mirai.lizyn;
 
-import com.esotericsoftware.yamlbeans.YamlException;
 import net.mamoe.mirai.console.plugin.jvm.JavaPlugin;
 
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescriptionBuilder;
@@ -11,7 +10,6 @@ import org.zlycerqan.mirai.lizyn.core.utils.ConfigUtils;
 import org.zlycerqan.mirai.lizyn.services.BotEventListener;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;

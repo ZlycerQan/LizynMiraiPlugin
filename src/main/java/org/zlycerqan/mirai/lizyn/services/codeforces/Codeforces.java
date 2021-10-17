@@ -20,6 +20,7 @@ import org.zlycerqan.mirai.lizyn.core.database.DatabaseInfoBuilder;
 import org.zlycerqan.mirai.lizyn.core.database.DatabaseManager;
 import org.zlycerqan.mirai.lizyn.core.database.UnsupportedDatabaseTypeException;
 import org.zlycerqan.mirai.lizyn.core.executor.ExecutorManager;
+import org.zlycerqan.mirai.lizyn.core.file.FileDirectionBuilder;
 import org.zlycerqan.mirai.lizyn.core.service.SimpleService;
 import org.zlycerqan.mirai.lizyn.core.service.exceptions.LoadConfigErrorException;
 import org.zlycerqan.mirai.lizyn.core.service.exceptions.ServiceNotStartException;
@@ -39,8 +40,11 @@ public class Codeforces extends SimpleService {
         super(config, miraiLogger, databaseManager, executorManager);
     }
 
-    private static final String CACHE_DIRECTION = PluginData.cachePath + "\\" + SERVICE_NAME;
+    private static final String CACHE_DIRECTION = new FileDirectionBuilder(PluginData.cachePath, SERVICE_NAME).build();
+
     private static final String CONTESTS_PICTURE_CACHE_FILENAME = "contests_cache.jpg";
+
+    private static final String CONTESTS_PICTURE_CACHE_FILEPATH = new FileDirectionBuilder(CACHE_DIRECTION, CONTESTS_PICTURE_CACHE_FILENAME).build();
 
     private CodeforcesDatabase codeforcesDatabase;
     private int[] noticeTime;
@@ -87,7 +91,7 @@ public class Codeforces extends SimpleService {
         }
         try {
             assert contestsCache != null;
-            CodeforcesUtils.saveContestPicture(CACHE_DIRECTION + "\\" + CONTESTS_PICTURE_CACHE_FILENAME, ContestsPictureBuilder.builderContestsPicture(contestsCache));
+            CodeforcesUtils.saveContestPicture(CONTESTS_PICTURE_CACHE_FILEPATH, ContestsPictureBuilder.builderContestsPicture(contestsCache));
         } catch (IOException e) {
             getLogger().error(e.getMessage());
         }
@@ -105,7 +109,7 @@ public class Codeforces extends SimpleService {
                 contestsCache = contestInfos;
                 assert contestsCache != null;
                 try {
-                    CodeforcesUtils.saveContestPicture(CACHE_DIRECTION + "\\" + CONTESTS_PICTURE_CACHE_FILENAME, ContestsPictureBuilder.builderContestsPicture(contestsCache));
+                    CodeforcesUtils.saveContestPicture(CONTESTS_PICTURE_CACHE_FILEPATH, ContestsPictureBuilder.builderContestsPicture(contestsCache));
                 } catch (IOException e) {
                     getLogger().error(decorateLog(e.getMessage()));
                 }
@@ -131,7 +135,7 @@ public class Codeforces extends SimpleService {
     private synchronized void sendContestTodo() {
         Bot bot = Bot.findInstance(botId);
         assert bot != null;
-        File file = new File(CACHE_DIRECTION + "\\" + CONTESTS_PICTURE_CACHE_FILENAME);
+        File file = new File(CONTESTS_PICTURE_CACHE_FILEPATH);
         ExternalResource resource = ExternalResource.create(file);
         Long[] friendIds = codeforcesDatabase.getFriendIds();
         for (long i : friendIds) {
