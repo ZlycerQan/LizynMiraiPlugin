@@ -9,9 +9,7 @@ import org.zlycerqan.mirai.lizyn.services.codeforces.model.ContestPhase;
 import org.zlycerqan.mirai.lizyn.services.codeforces.model.QueryContestResult;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public class ContestUtils {
 
@@ -51,6 +49,7 @@ public class ContestUtils {
                 result.add(contest);
             }
         }
+        result.sort(Comparator.comparing(Contest::getStartTimeSeconds));
         return result;
     }
 }
