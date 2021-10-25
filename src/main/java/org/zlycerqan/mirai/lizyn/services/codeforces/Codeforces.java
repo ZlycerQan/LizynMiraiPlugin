@@ -91,6 +91,9 @@ public class Codeforces extends SimpleService {
             @Override
             public void run() {
                 updateContestsCache();
+                if (contestsCache == null) {
+                    return ;
+                }
                 boolean needSend = false;
                 ArrayList<Contest> contests = new ArrayList<>();
                 int now = (int) ((new Date()).getTime() / 1000L);
