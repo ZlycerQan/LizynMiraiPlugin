@@ -72,15 +72,25 @@ public class Codeforces extends SimpleService {
         initFlushContestInfosTimer();
     }
 
-    private void initFlushContestInfosTimer() {
+    private synchronized void updateContestsCache() {
         contestsCache = contestUtils.getCurrentOrUpcomingContests();
-        contestsText = CodeforcesUtils.formatContestList(contestsCache);
+        if (contestsCache == null) {
+            contestsText = "Error.";
+        } else if (contestsCache.size() == 0) {
+            contestsText = "No contests now.";
+        } else {
+            contestsText = CodeforcesUtils.formatContestList(contestsCache);
+        }
+    }
+
+    private void initFlushContestInfosTimer() {
+        updateContestsCache();
         long flushContestsPeriod = 10 * 1000L;
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                contestsCache = contestUtils.getCurrentOrUpcomingContests();
+                updateContestsCache();
                 boolean needSend = false;
                 ArrayList<Contest> contests = new ArrayList<>();
                 int now = (int) ((new Date()).getTime() / 1000L);

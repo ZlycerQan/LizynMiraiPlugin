@@ -1,6 +1,7 @@
 package org.zlycerqan.mirai.lizyn.services.codeforces;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -23,7 +24,11 @@ public class ContestUtils {
         try {
             Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                return json.fromJson(Objects.requireNonNull(response.body()).string(), QueryContestResult.class).getResult();
+                try {
+                    return json.fromJson(Objects.requireNonNull(response.body()).string(), QueryContestResult.class).getResult();
+                } catch (JsonSyntaxException e) {
+                    return null;
+                }
             } else {
                 return null;
             }
