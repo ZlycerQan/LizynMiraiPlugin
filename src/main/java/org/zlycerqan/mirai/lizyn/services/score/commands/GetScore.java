@@ -76,8 +76,8 @@ public class GetScore {
                         }
                     }
                     try {
-                        event.getFriend().sendMessage(makeResponse(userConnection.fetchScoreModelList("2020",
-                                "12",
+                        event.getFriend().sendMessage(makeResponse(userConnection.fetchScoreModelList("2021",
+                                "3",
                                 "false",
                                 String.valueOf((new Date()).getTime()),
                                 "15",
